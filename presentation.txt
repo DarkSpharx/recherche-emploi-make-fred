@@ -1,0 +1,72 @@
+AUTOMATISER SA RECHERCHE D'EMPLOI DATA ANALYST
+Make + API France Travail
+
+Document de présentation — à compléter avant le rendu
+
+1. Objectif
+
+Cette automatisation recherche chaque semaine les offres d'emploi « data analyst » publiées au cours des sept derniers jours. Elle ajoute les résultats dans un tableau de suivi Google Sheets et envoie une alerte par offre dans un salon Discord privé.
+
+2. Outils utilisés
+
+- France Travail : API Offres d'emploi v2
+- Make : scénario d'automatisation
+- Google Sheets : suivi des offres et des candidatures
+- Discord : réception des alertes
+
+3. Fonctionnement du scénario
+
+1. Le premier module HTTP demande un jeton d'accès à France Travail à l'aide des identifiants de l'application.
+2. Le second module HTTP utilise ce jeton pour rechercher les offres selon les critères choisis.
+3. L'Iterator parcourt la liste des offres reçues, une offre à la fois.
+4. Google Sheets ajoute une ligne par offre, en mettant en forme les dates, les valeurs absentes, l'information d'alternance et le lien de l'annonce.
+5. Discord envoie une alerte par offre avec son lien de candidature.
+6. Le scénario est planifié pour s'exécuter chaque lundi matin.
+
+À compléter : départements recherchés, mots-clés et autres critères :
+
+____________________________________________________________________
+
+4. Tableau de suivi
+
+Lien Google Sheets (accès en lecture seule) :
+
+____________________________________________________________________
+
+Colonnes remplies par Make : date de publication, intitulé, entreprise,
+lieu, type de contrat, alternance, lien de l'offre et identifiant.
+
+Colonnes complétées manuellement : statut, date de candidature et notes.
+
+5. Nettoyage des données
+
+- Les dates sont affichées au format JJ/MM/AAAA.
+- Une entreprise manquante est remplacée par une valeur par défaut.
+- L'alternance est affichée sous la forme Oui/Non.
+- Le lien de candidature est construit à partir de l'identifiant de l'offre.
+
+6. Planification et estimation des crédits
+
+Fréquence : une fois par semaine, le lundi matin.
+
+Estimation des crédits : à compléter à partir d'une exécution réelle du
+scénario et du nombre d'offres traitées.
+
+____________________________________________________________________
+
+7. Sécurité
+
+Les identifiants client, clés secrètes et URL de webhook ne figurent pas
+dans ce document ni dans le dépôt. Le Blueprint et les captures doivent
+être vérifiés et expurgés avant publication.
+
+8. Démonstration (5 minutes)
+
+- Lancer le scénario avec « Run once ».
+- Présenter les modules et le parcours d'une offre.
+- Montrer quelques lignes du tableau et les colonnes de suivi.
+- Montrer les alertes dans le salon Discord.
+- Expliquer la planification et l'estimation des crédits.
+
+À personnaliser avant la présentation : résultats d'exécution, captures,
+critères de recherche et estimation réelle des crédits.
