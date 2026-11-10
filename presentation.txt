@@ -30,6 +30,10 @@ La première recherche sur Arras ne renvoyait aucune offre.
 La zone a été élargie au Pas-de-Calais.
 Le test a alors renvoyé 10 offres.
 
+Pour changer de ville, modifier la zone de recherche.
+Pour chercher un stage, ajouter « stage » à `query` dans le premier module HTTP.
+Exemple : `data analyst stage Pas-de-Calais`.
+
 4. Fonctionnement du scénario
 
 1. HTTP 1 demande les offres à JSearch.
@@ -38,6 +42,9 @@ Le test a alors renvoyé 10 offres.
 4. Google Sheets ajoute une ligne par offre.
 5. HTTP 2 envoie une alerte Discord avec le lien pour postuler.
 6. Le scénario tourne chaque lundi à 12 h (Europe/Paris).
+
+Le header `x-api-key` transmet la clé qui autorise l'accès à JSearch.
+Cette clé reste secrète.
 
 5. Tableau de suivi
 
@@ -63,6 +70,9 @@ Colonnes à compléter :
 - Dates au format JJ/MM/AAAA
 - Valeurs absentes remplacées par « Non communiqué »
 - Une ligne ajoutée par offre
+- Sans `ifempty`, les cellules correspondantes resteraient vides.
+
+Sans `ifempty`, les informations absentes laisseraient des cellules vides.
 
 Difficultés rencontrées et solutions :
 - Recherche sur Arras sans résultat : zone élargie au Pas-de-Calais.
