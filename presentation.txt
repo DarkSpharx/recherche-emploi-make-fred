@@ -19,8 +19,7 @@ dans un salon Discord privé.
 
 3. Critères de recherche
 
-Ville et requête (ex. « data analyst Toulouse ») :
-____________________________________________________________________
+Ville et requête : Arras — « data analyst Arras »
 
 Pays : France (fr)                 Langue : français (fr)
 Période : dernière semaine (week)  Nombre de pages : 1 (environ 10 offres)
