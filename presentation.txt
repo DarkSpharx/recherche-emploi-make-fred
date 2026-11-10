@@ -39,9 +39,10 @@ Exemple : `data analyst stage Pas-de-Calais`.
 1. HTTP 1 demande les offres à JSearch.
 2. JSearch renvoie les offres dans `jobs`.
 3. L'Iterator parcourt les offres une par une.
-4. Google Sheets ajoute une ligne par offre.
-5. HTTP 2 envoie une alerte Discord avec le lien pour postuler.
-6. Le scénario tourne chaque lundi à 12 h (Europe/Paris).
+4. Google Sheets cherche l'offre par intitulé, entreprise et lieu.
+5. Si elle est absente, Google Sheets ajoute l'offre.
+6. HTTP 2 envoie une alerte Discord avec le lien pour postuler.
+7. Le scénario tourne chaque lundi à 12 h (Europe/Paris).
 
 Le header `x-api-key` transmet la clé qui autorise l'accès à JSearch.
 Cette clé reste secrète.
@@ -70,22 +71,22 @@ Colonnes à compléter :
 - Dates au format JJ/MM/AAAA
 - Valeurs absentes remplacées par « Non communiqué »
 - Une ligne ajoutée par offre
-- Sans `ifempty`, les cellules correspondantes resteraient vides.
 
 Sans `ifempty`, les informations absentes laisseraient des cellules vides.
 
 Difficultés rencontrées et solutions :
 - Recherche sur Arras sans résultat : zone élargie au Pas-de-Calais.
 - Discord indiquait que le message était vide : envoi corrigé au format JSON.
+- Les tests répétés risquaient de créer des doublons : recherche par intitulé,
+  entreprise et lieu avant l'ajout de l'offre.
 
-7. Planification et estimation de la consommation
+7. Planification et consommation
 
 - Planification : chaque lundi à 12 h (Europe/Paris)
-- Dernier test : 4 offres, 10 crédits Make
-- Test précédent : 10 offres, 22 crédits Make
-- Make : environ 40 à 110 crédits par mois (4 à 5 exécutions)
-- JSearch : 12 appels sur les 30 derniers jours, sans erreur
-- Estimation JSearch : 4 à 5 appels par mois
+- Dernier test anti-doublons : 4 offres déjà présentes, aucun doublon ajouté
+- Make : 6 crédits et 6 opérations pour ce test
+- JSearch : 13 appels sur les 3 dernières heures, sans erreur
+- Estimation planifiée JSearch : 4 à 5 appels par mois, hors tests
 
 Limites gratuites indiquées dans le brief :
 - Make : 1 000 crédits par mois
@@ -103,3 +104,6 @@ Limites gratuites indiquées dans le brief :
 - Montrer les offres dans Google Sheets.
 - Montrer les alertes dans Discord.
 - Présenter l'horaire et la consommation estimée.
+- Relancer une fois : les offres déjà présentes ne doivent pas être ajoutées
+  de nouveau.
+- Trois tests successifs n'ont ajouté aucun doublon.
