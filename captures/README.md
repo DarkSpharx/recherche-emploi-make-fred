@@ -1,5 +1,7 @@
-# Captures d'écran
+# Captures d'écran — JSearch
 
-Déposer ici les captures du scénario Make, du Google Sheet rempli, des alertes Discord et de la planification.
+Déposer ici les captures du scénario Make avec JSearch, du Google Sheet rempli,
+des alertes Discord et de la planification hebdomadaire.
 
-Avant de les ajouter au dépôt, masquer ou recadrer toute clé, URL de webhook, donnée personnelle ou autre information confidentielle.
+Avant de les ajouter au dépôt, masquer ou recadrer la clé API JSearch, l'URL
+du webhook, toute donnée personnelle ou autre information confidentielle.
