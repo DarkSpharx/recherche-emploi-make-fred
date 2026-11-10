@@ -1,82 +1,95 @@
 AUTOMATISER SA RECHERCHE D'EMPLOI DATA ANALYST
 Make + API JSearch (OpenWeb Ninja)
 
-Document de présentation — à compléter avec les résultats réels avant le rendu
+Document de présentation
 
 1. Objectif
 
-Cette automatisation recherche chaque semaine des offres d'emploi « data analyst »
-dans la ville choisie, publiées au cours des sept derniers jours. Elle ajoute les
-résultats dans un tableau de suivi Google Sheets et envoie une alerte par offre
-dans un salon Discord privé.
+Chaque semaine, le scénario cherche des offres « data analyst » publiées
+au cours des sept derniers jours.
+- Il ajoute les offres dans Google Sheets.
+- Il envoie une alerte par offre dans Discord.
 
 2. Outils utilisés
 
-- JSearch (OpenWeb Ninja) : recherche d'offres via une API
-- Make : scénario d'automatisation
-- Google Sheets : suivi des offres et des candidatures
+- JSearch (OpenWeb Ninja) : recherche d'offres
+- Make : automatisation
+- Google Sheets : suivi des offres et candidatures
 - Discord : réception des alertes
 
 3. Critères de recherche
 
-Ville et requête : Arras — « data analyst Arras »
+- Mots-clés : data analyst
+- Zone : Pas-de-Calais
+- Pays : France
+- Langue : français
+- Période : dernière semaine
+- Nombre de pages : 1
 
-Pays : France (fr)                 Langue : français (fr)
-Période : dernière semaine (week)  Nombre de pages : 1 (environ 10 offres)
+La première recherche sur Arras ne renvoyait aucune offre.
+La zone a été élargie au Pas-de-Calais.
+Le test a alors renvoyé 10 offres.
 
 4. Fonctionnement du scénario
 
-1. Le module HTTP appelle l'API JSearch avec la clé dans le header `x-api-key`
-   et les critères de recherche en paramètres.
-2. JSearch renvoie les offres dans la liste `jobs`.
-3. L'Iterator parcourt `jobs[]`, une offre à la fois.
-4. Google Sheets ajoute une ligne par offre, en mettant en forme les dates et
-   en remplaçant les valeurs absentes.
-5. Discord envoie une alerte par offre avec son lien pour postuler.
-6. Le scénario est planifié pour s'exécuter chaque lundi à 8 h.
+1. HTTP 1 demande les offres à JSearch.
+2. JSearch renvoie les offres dans `jobs`.
+3. L'Iterator parcourt les offres une par une.
+4. Google Sheets ajoute une ligne par offre.
+5. HTTP 2 envoie une alerte Discord avec le lien pour postuler.
+6. Le scénario tourne chaque lundi à 12 h (Europe/Paris).
 
 5. Tableau de suivi
 
-Lien Google Sheets (accès en lecture seule) :
-____________________________________________________________________
+Lien Google Sheets (accès lecteur pour Simplon.co) :
+https://docs.google.com/spreadsheets/d/15PP0LrEECErXBxxyInQzjg560Kqtoy4Xt19I1xPgj2s/edit?usp=sharing
 
-Colonnes remplies par Make : date de publication, intitulé, entreprise, lieu,
-type de contrat, site d'origine et lien pour postuler.
+Colonnes remplies par Make :
+- Date de publication
+- Intitulé
+- Entreprise
+- Lieu
+- Type de contrat
+- Site d'origine
+- Lien pour postuler
 
-Colonnes complétées manuellement : statut, date de candidature et notes.
+Colonnes à compléter :
+- Statut
+- Date de candidature
+- Notes
 
 6. Préparation et stockage des données
 
-- Les dates sont affichées au format JJ/MM/AAAA.
-- Les valeurs absentes sont remplacées par « Non communiqué ».
-- Les lignes sont ajoutées par offre dans le Google Sheet.
+- Dates au format JJ/MM/AAAA
+- Valeurs absentes remplacées par « Non communiqué »
+- Une ligne ajoutée par offre
+
+Difficultés rencontrées et solutions :
+- Recherche sur Arras sans résultat : zone élargie au Pas-de-Calais.
+- Discord indiquait que le message était vide : envoi corrigé au format JSON.
 
 7. Planification et estimation de la consommation
 
-Fréquence : chaque lundi à 8 h.
+- Planification : chaque lundi à 12 h (Europe/Paris)
+- Dernier test : 4 offres, 10 crédits Make
+- Test précédent : 10 offres, 22 crédits Make
+- Make : environ 40 à 110 crédits par mois (4 à 5 exécutions)
+- JSearch : 12 appels sur les 30 derniers jours, sans erreur
+- Estimation JSearch : 4 à 5 appels par mois
 
-Crédits Make consommés par exécution : à compléter après un test réel.
-Estimation mensuelle Make : à compléter.
-Requêtes JSearch consommées par exécution : à compléter.
-Estimation mensuelle JSearch : à compléter.
-
-Les limites gratuites indiquées dans le brief sont de 1 000 crédits Make et
-200 requêtes JSearch par mois. La consommation réelle dépend des offres et
-du nombre d'exécutions.
+Limites gratuites indiquées dans le brief :
+- Make : 1 000 crédits par mois
+- JSearch : 200 appels par mois
 
 8. Sécurité
 
-La clé API JSearch et l'URL du webhook Discord sont des secrets. Elles ne
-doivent pas figurer dans ce document, les captures ni le dépôt. Le Blueprint
-et les captures doivent être vérifiés et expurgés avant publication.
+- La clé API et l'URL du webhook sont des secrets.
+- Elles sont remplacées par `***` dans le Blueprint.
+- Les captures partagées sont floutées.
 
 9. Démonstration (5 minutes)
 
-- Lancer le scénario avec « Run once ».
-- Présenter l'appel HTTP, l'Iterator et le parcours d'une offre.
-- Montrer quelques lignes du tableau et les colonnes de suivi.
-- Montrer les alertes dans le salon Discord.
-- Expliquer la planification et la consommation estimée.
-
-À compléter avant le rendu : résultats d'exécution, lien du Sheet, critères
-réels, consommation mesurée et captures expurgées.
+- Montrer le scénario Make.
+- Montrer les offres dans Google Sheets.
+- Montrer les alertes dans Discord.
+- Présenter l'horaire et la consommation estimée.
